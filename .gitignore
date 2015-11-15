@@ -1,0 +1,9 @@
+**/bin/**
+**/.settings
+**/work/**
+**/target/**
+/pom.xml.releaseBackup
+/release.properties
+/settings.xml
+*.unc-backup~
+*.uncrustify
