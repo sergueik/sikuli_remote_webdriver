@@ -8,6 +8,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <junit.version>4.8.1</junit.version>
+    <sikulixapi.version>1.1.0</sikulixapi.version>
     <sikuli-api.version>1.2.0</sikuli-api.version>
     <selenium.version>2.44.0</selenium.version>
     <selenium-firefox-driver.version>2.43.1</selenium-firefox-driver.version>
@@ -67,6 +68,11 @@
       <version>20080701</version>
     </dependency>
     <dependency>
+      <groupId>com.sikulix</groupId>
+      <artifactId>sikulixapi</artifactId>
+      <version>${sikulixapi.version}</version>
+    </dependency>
+    <dependency>
       <groupId>org.sikuli</groupId>
       <artifactId>sikuli-api</artifactId>
       <version>${sikuli-api.version}</version>
@@ -77,6 +83,7 @@
         </exclusion>
       </exclusions>
     </dependency>
+
   </dependencies>
   <build>
     <plugins>
