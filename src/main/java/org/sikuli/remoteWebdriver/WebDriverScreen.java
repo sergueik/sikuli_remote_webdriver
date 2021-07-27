@@ -18,54 +18,52 @@ import org.sikuli.api.Screen;
 
 public class WebDriverScreen implements Screen {
 
-public RemoteWebDriver driver;
-final private Dimension size;
-private int newY=0;
-private int newHeight=0;
-public WebDriverScreen(SikuliRemoteWebDriver inputDriver) throws IOException {
-	driver = (RemoteWebDriver)inputDriver;
-	driver.manage().window().maximize();
-	WebDriver tempDriver = new Augmenter().augment(driver);
-	File screenshotFile = ((TakesScreenshot) tempDriver)
-	                      .getScreenshotAs(OutputType.FILE);
-	BufferedImage b = ImageIO.read(screenshotFile);
-	size = new Dimension(b.getWidth(),b.getHeight());
-	newHeight=size.height;
-}
+	public RemoteWebDriver driver;
+	final private Dimension size;
+	private int newY = 0;
+	private int newHeight = 0;
 
-BufferedImage crop(BufferedImage src, int x, int y, int width, int height){
-	BufferedImage dest = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
-	Graphics g = dest.getGraphics();
-	g.drawImage(src, 0, 0, width, height, x, y, x + width, y + height, null);
-	g.dispose();
-	return dest;
-}
-
-public BufferedImage getScreenshot(int x, int y, int width, int height) {
-	File screenshotFile = driver.getScreenshotAs(OutputType.FILE);
-	try {
-		FileUtils.copyFile(screenshotFile,  new File("chrome.jpg"));
-		BufferedImage full = ImageIO.read(screenshotFile);
-		BufferedImage cropped = crop(full, x,newY, width, newHeight);
-		ImageIO.write(cropped, "jpg", new File("chromecrop.jpg"));
-		return cropped;
-	} catch (IOException e) {
+	public WebDriverScreen(SikuliRemoteWebDriver inputDriver) throws IOException {
+		driver = (RemoteWebDriver) inputDriver;
+		driver.manage().window().maximize();
+		WebDriver tempDriver = new Augmenter().augment(driver);
+		File screenshotFile = ((TakesScreenshot) tempDriver).getScreenshotAs(OutputType.FILE);
+		BufferedImage b = ImageIO.read(screenshotFile);
+		size = new Dimension(b.getWidth(), b.getHeight());
+		newHeight = size.height;
 	}
-	return null;
-}
 
-public Dimension getSize() {
-	return size;
-}
+	BufferedImage crop(BufferedImage src, int x, int y, int width, int height) {
+		BufferedImage dest = new BufferedImage(width, height, BufferedImage.TYPE_3BYTE_BGR);
+		Graphics g = dest.getGraphics();
+		g.drawImage(src, 0, 0, width, height, x, y, x + width, y + height, null);
+		g.dispose();
+		return dest;
+	}
 
+	public BufferedImage getScreenshot(int x, int y, int width, int height) {
+		File screenshotFile = driver.getScreenshotAs(OutputType.FILE);
+		try {
+			FileUtils.copyFile(screenshotFile, new File("chrome.jpg"));
+			BufferedImage full = ImageIO.read(screenshotFile);
+			BufferedImage cropped = crop(full, x, newY, width, newHeight);
+			ImageIO.write(cropped, "jpg", new File("chromecrop.jpg"));
+			return cropped;
+		} catch (IOException e) {
+		}
+		return null;
+	}
 
-public void setNewHeightForCropping(int heightToCrop){
-	newHeight=heightToCrop;
-}
+	public Dimension getSize() {
+		return size;
+	}
 
-public void setY(int yToCrop){
-	newY=yToCrop;
-}
+	public void setNewHeightForCropping(int heightToCrop) {
+		newHeight = heightToCrop;
+	}
 
+	public void setY(int yToCrop) {
+		newY = yToCrop;
+	}
 
 }
