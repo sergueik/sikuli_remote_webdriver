@@ -1,22 +1,24 @@
 <?xml version="1.0"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+  <groupId>org.sikuli.remotwebdriver</groupId>
   <artifactId>SikuliRemoteWebdriver</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>SikuliRemoteWebdriver</name>
   <url>http://maven.apache.org</url>
   <properties>
+    <java.version>1.8</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <commons-io.version>2.7</commons-io.version>
     <commons-exec.version>1.3</commons-exec.version>
+    <json.version>20231013</json.version>
     <junit.version>4.13.1</junit.version>
     <sikulixapi.version>1.1.0</sikulixapi.version>
     <sikuli-api.version>1.2.0</sikuli-api.version>
     <selenium.version>2.44.0</selenium.version>
     <selenium-firefox-driver.version>2.43.1</selenium-firefox-driver.version>
-    <maven-compiler-plugin.version>2.0.2</maven-compiler-plugin.version>
-    <java.version>1.6</java.version>
+    <maven-compiler-plugin.version>3.6.1</maven-compiler-plugin.version>
   </properties>
   <dependencies>
     <dependency>
@@ -70,7 +72,7 @@
     <dependency>
       <groupId>org.json</groupId>
       <artifactId>json</artifactId>
-      <version>20080701</version>
+      <version>${json.version}</version>
     </dependency>
     <dependency>
       <groupId>com.sikulix</groupId>
@@ -107,7 +109,49 @@
           <mainClass>org.sikuli.remoteWebdriver.App</mainClass>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven-compiler-plugin.version}</version>
+        <goals>
+          <goal>compile</goal>
+        </goals>
+        <configuration>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+          <encoding>utf-8</encoding>
+          <compilerArgument>-Xlint:all</compilerArgument>
+          <showWarnings>true</showWarnings>
+          <showDeprecation>true</showDeprecation>
+          <!--
+          <compilerArgument>-verbose</compilerArgument>
+          -->
+        </configuration>
+      </plugin>
     </plugins>
   </build>
-  <groupId>org.sikuli.remotwebdriver</groupId>
+  <repositories>
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </repository>
+    <repository>
+      <id>maven-central</id>
+      <name>maven central repo</name>
+      <url>https://mvnrepository.com/repos/central</url>
+    </repository>
+    <repository>
+      <id>consol</id>
+      <url>https://labs.consol.de/maven/repository/</url>
+    </repository>
+    <repository>
+      <id>central</id>
+      <url>https://repo1.maven.org/maven2/</url>
+    </repository>
+    <repository>
+      <id>project.local</id>
+      <name>project</name>
+      <url>file:${project.basedir}/repo</url>
+    </repository>
+  </repositories>
 </project>
